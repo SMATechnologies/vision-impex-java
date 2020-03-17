@@ -7,7 +7,10 @@ No Support and No Warranty are provided by SMA Technologies for this project and
 SMA Technologies assumes no liability for damage caused by the usage of any of the files offered here via this Github repository.
 
 # Prerequisites
-Uses the opCon API to perform the functions, so need an opCon-API license
+
+1.  Uses the opCon API to perform the functions, so need an opCon-API license
+2.  Requires Java version 11.
+    can download OpenJDK from https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot
 
 # Instructions
 Vision Deploy provides the mechanism to move Vision Definitions between OpCon Systems.
@@ -59,7 +62,14 @@ It supports the following arguments.
 	
 <install_dir>\Import.exe -url "https://bvhtest02:9010" -u "ocadm" -p "[[password]]" -idir "<install_dir>\data" -f "VISION_EXTRACT_20200317_081140.json" -debug
 
+Installation:
 
+Download software from desired Release by selecting and saving the executables.
+After download create folder and place executables in the folder <install folder>.
+After downloading the OpenJDK, create a <install folder>/java directory off the folder you saved
+the executables in.
+Extract the Java software and copy this to the <install folder>/java directory.
+ 
 # License
 Copyright 2019 SMA Technologies
 
