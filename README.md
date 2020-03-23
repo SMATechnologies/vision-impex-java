@@ -11,6 +11,9 @@ SMA Technologies assumes no liability for damage caused by the usage of any of t
 - Uses the opCon API to perform the functions, so need an opCon-API license
 - Requires **Java version 11**.
   - can download OpenJDK 11 from https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot
+    please note when downloading the jdk, do not select the .msi file to download as this will
+    install the jdk on teh Windows system. You should download the .zip file (select other
+    platforms) as you need to unzip the downloaded file into the /java directory.
 
 # Instructions
 Vision ImpEx provides the mechanism to move Vision Definitions between OpCon Systems.
