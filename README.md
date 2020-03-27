@@ -8,12 +8,9 @@ SMA Technologies assumes no liability for damage caused by the usage of any of t
 
 # Prerequisites
 
-- Uses the opCon API to perform the functions, so need an opCon-API license
+- Uses the opCon API to perform the functions, so an opCon-API license is required
 - Requires **Java version 11**.
-  - can download OpenJDK 11 from https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot
-    please note when downloading the jdk, do not select the .msi file to download as this will
-    install the jdk on teh Windows system. You should download the .zip file (select other
-    platforms) as you need to unzip the downloaded file into the /java directory.
+  - embedded OpenJDK included in installation zip file.
 
 # Instructions
 Vision ImpEx provides the mechanism to move Vision Definitions between OpCon Systems.
@@ -60,11 +57,9 @@ Example :
 > <install_dir>\Import.exe -url "https://bvhtest02:9010" -u "ocadm" -p "[[password]]" -idir "<install_dir>\data" -f "VISION_EXTRACT_20200317_081140.json" -debug
 
 ### Installation
-Download software from desired Release by selecting and saving the executables.
-After download create folder and place executables in the folder <install folder>.
-After downloading the OpenJDK or JRE, create a <install folder>/java directory off the folder you saved
-the executables in.
-Extract the Java software and copy this to the <install folder>/java directory.
+Download vision_deploy.zip file from the desired release by selecting and saving the file.
+After download create a installation root folder and then extract the information from the downloaded
+file into the created installation directory. 
  
 # License
 Copyright 2019 SMA Technologies
