@@ -57,9 +57,7 @@ public class VisionActionsImpl implements IVisionActions {
 				String actionKey = action.getName().replaceAll("[/:.*?\\s]", "_");
 				VisionAction existingAction = htblExistingActions.get(actionKey);
 				if(existingAction == null) {
-					if(_VisionImpexArguments.isDebug()) {
-						LOG.info("DEBUG : Adding action (" + action.getName() + ") as key (" + actionKey + ")" );
-					}
+					LOG.debug("Adding action (" + action.getName() + ") as key (" + actionKey + ")" );
 					htblExistingActions.put(actionKey,  action);
 				}
 			}
@@ -77,16 +75,12 @@ public class VisionActionsImpl implements IVisionActions {
 			Set<String> keys = htblExistingActions.keySet();
 			for(String key : keys) {
 				VisionAction action = htblExistingActions.get(key);
-				if(_VisionImpexArguments.isDebug()) {
-					LOG.info("DEBUG : Updating action (" + action.getName() + ")" );
-				}
+				LOG.debug("Updating action (" + action.getName() + ")" );
 				opconApi.visionActions().put(action);
 			}
 			// add additional actions
 			for(VisionAction action : additionalActions) {
-				if(_VisionImpexArguments.isDebug()) {
-					LOG.info("DEBUG : adding action (" + action.getName() + ")" );
-				}
+				LOG.debug("adding action (" + action.getName() + ")" );
 				opconApi.visionActions().post(action);
 			}
 			result = true;

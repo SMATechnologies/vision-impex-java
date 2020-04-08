@@ -26,7 +26,7 @@ import com.smatechnologies.vision.impex.ws.WsClientBuilder;
 
 public class ImportImpl implements IImport {
 
-	private static final String DebugUrlMsg =       "DEBUG : Connecting to API ({0})";
+	private static final String DebugUrlMsg =       "Connecting to API ({0})";
 	
 	private static final String UrlFormat = "{0}/api";
 
@@ -49,18 +49,13 @@ public class ImportImpl implements IImport {
 		try {
 			// create client connection
 			String url = MessageFormat.format(UrlFormat,_VisionImpexArguments.getOpConSystemUrl());
-			if(_VisionImpexArguments.isDebug()) {
-				LOG.info(MessageFormat.format(DebugUrlMsg, url));
-			}
+			LOG.debug(MessageFormat.format(DebugUrlMsg, url));
 	
 			OpconApiProfile profile = new OpconApiProfile(url);
 			OpconApi opconApi = getClient(_VisionImpexArguments, profile);
 			// get import data
 			VisionDefinitions visionDefinitions = readFile(_VisionImpexArguments);
-			if(_VisionImpexArguments.isDebug()) {
-				String jsonData = _DefaultObjectMapperProvider.getObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(visionDefinitions);
-				LOG.info("DEBUG : definitions to be imported (" + jsonData + ")");
-			}
+			LOG.debug("VisionDefinitions " + _DefaultObjectMapperProvider.getObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(visionDefinitions));
 			
 			// update actions
 			boolean importActionsResult = _IVisionActions.setActions(opconApi, _VisionImpexArguments, visionDefinitions.getActions());

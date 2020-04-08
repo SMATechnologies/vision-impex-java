@@ -4,6 +4,7 @@ import com.beust.jcommander.Parameter;
 
 public class VisionImpexArguments {
 
+	public static final String TaskArgumentDescriptionMsg = "The task to perform (values cexport, cimport)";
 	public static final String OpConSystemUrlArgumentDescriptionMsg = "The url of the OpCon System (https://<name>:<port> or http://<name>:<port>)";
 	public static final String OpConUserNameArgumentDescriptionMsg = "The name of the OpCon user that has OpCon-API privileges";
 	public static final String OpConUserPasswordArgumentDescriptionMsg = "The password of the OpCon user that has OpCon-API privileges";
@@ -13,6 +14,8 @@ public class VisionImpexArguments {
 	public static final String FileNameArgumentDescriptionMsg = "The name of the file containing the information to import";
 	public static final String DebugArgumentDescriptionMsg = "Set program into debug mode)";
 
+	@Parameter(names="-t", description = TaskArgumentDescriptionMsg)
+	private String task = null;
 
 	@Parameter(names="-url", required=true, description = OpConSystemUrlArgumentDescriptionMsg)
 	private String opConSystemUrl = null;
@@ -37,6 +40,14 @@ public class VisionImpexArguments {
 
 	@Parameter(names="-debug", description = DebugArgumentDescriptionMsg)
 	private boolean debug = false;
+
+	public String getTask() {
+		return task;
+	}
+
+	public void setTask(String task) {
+		this.task = task;
+	}
 
 	public String getOpConSystemUrl() {
 		return opConSystemUrl;

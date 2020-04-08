@@ -40,19 +40,19 @@ public class MasterVisionWorkspaceImpl implements IMasterVisionWorkspace {
 		List<MasterVisionWorkspace> visionWorkspaces = opconApi.masterVisionWorkspaces().get(criteria);
 		if(_VisionImpexArguments.isDebug()) {
 			for(MasterVisionWorkspace visionWorkspace : visionWorkspaces) { 
-				LOG.info("DEBUG : workspace (" + visionWorkspace.getName() + ")");
+				LOG.debug("workspace (" + visionWorkspace.getName() + ")");
 				for(MasterVisionGroupCard vgroupcard : visionWorkspace.getMasterVisionGroupCards()) { 
-					LOG.info("DEBUG : vgroupcard (" + vgroupcard.getName() + ")");
+					LOG.debug("vgroupcard (" + vgroupcard.getName() + ")");
 					List<MasterVisionTagCard> vgrouptags = vgroupcard.getTagChildren();
 					for(MasterVisionTagCard vtagcard : vgrouptags) { 
-						LOG.info("DEBUG : vtagcard   (" + vtagcard.getName() + ")");
+						LOG.debug("vtagcard   (" + vtagcard.getName() + ")");
 					}
 				}
 				for(MasterVisionCard vcard : visionWorkspace.getMasterVisionCards()) { 
-					LOG.info("DEBUG : vcard      (" + vcard.getName() + ")");
+					LOG.debug("vcard      (" + vcard.getName() + ")");
 				}
 				for(MasterVisionTagCard vtagcard : visionWorkspace.getMasterVisionTagCards()) { 
-					LOG.info("DEBUG : vtagcard   (" + vtagcard.getName() + ")");
+					LOG.debug("vtagcard   (" + vtagcard.getName() + ")");
 				}
 			}
 		}
@@ -76,9 +76,7 @@ public class MasterVisionWorkspaceImpl implements IMasterVisionWorkspace {
 				String workspaceKey = workspace.getName().replaceAll("[/:.*?\\s]", "_");
 				MasterVisionWorkspace existingWorkspace = htblExistingWorkspaces.get(workspaceKey);
 				if(existingWorkspace == null) {
-					if(_VisionImpexArguments.isDebug()) {
-						LOG.info("DEBUG : Adding workspace (" + workspace.getName() + ") as key (" + workspaceKey + ")" );
-					}
+					LOG.debug("Adding workspace (" + workspace.getName() + ") as key (" + workspaceKey + ")" );
 					htblExistingWorkspaces.put(workspaceKey,  workspace);
 				}
 			}
@@ -97,20 +95,14 @@ public class MasterVisionWorkspaceImpl implements IMasterVisionWorkspace {
 			Set<String> keys = htblExistingWorkspaces.keySet();
 			for(String key : keys) {
 				MasterVisionWorkspace workspace = htblExistingWorkspaces.get(key);
-				if(_VisionImpexArguments.isDebug()) {
-					LOG.info("DEBUG : Updating workspace (" + workspace.getName() + ")" );
-				}
-				String jsonData = _ObjectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(workspace);
-				LOG.info("DEBUG : merged workspace " + jsonData);
+				LOG.debug("Updating workspace (" + workspace.getName() + ")" );
+				LOG.debug("workspace " +_ObjectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(workspace));
 				opconApi.masterVisionWorkspaces().post(workspace);
 			}
 			// add additional workspaces
 			for(MasterVisionWorkspace workspace : additionalWorkspaces) {
-				if(_VisionImpexArguments.isDebug()) {
-					LOG.info("DEBUG : adding workspace (" + workspace.getName() + ")" );
-				}
-				String jsonData = _ObjectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(workspace);
-				LOG.info("DEBUG : new workspace " + jsonData);
+				LOG.debug("adding workspace (" + workspace.getName() + ")" );
+				LOG.debug("workspace " +_ObjectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(workspace));
 				opconApi.masterVisionWorkspaces().post(workspace);
 			}
 			result = true;
@@ -134,9 +126,7 @@ public class MasterVisionWorkspaceImpl implements IMasterVisionWorkspace {
 			String cardKey = masterVisionCard.getName().replaceAll("[/:.*?\\s]", "_");
 			MasterVisionCard existingCard = htblExistingCards.get(cardKey);
 			if(existingCard == null) {
-				if(_VisionImpexArguments.isDebug()) {
-					LOG.info("DEBUG : Adding existing card (" + masterVisionCard.getName() + ") as key (" + cardKey + ")" );
-				}
+				LOG.debug("Adding existing card (" + masterVisionCard.getName() + ") as key (" + cardKey + ")" );
 				htblExistingCards.put(cardKey, masterVisionCard);
 			}
 		}
@@ -144,13 +134,11 @@ public class MasterVisionWorkspaceImpl implements IMasterVisionWorkspace {
 			String cardKey = masterVisionCard.getName().replaceAll("[/:.*?\\s]", "_");
 			MasterVisionCard updateCard = htblExistingCards.get(cardKey);
 			if(updateCard == null) {
-				if(_VisionImpexArguments.isDebug()) {
-					LOG.info("DEBUG : Merge : Adding card (" + masterVisionCard.getName() + ") as key (" + cardKey + ")" );
-				}
+				LOG.debug("Merge : Adding card (" + masterVisionCard.getName() + ") as key (" + cardKey + ")" );
 				htblExistingCards.put(cardKey, masterVisionCard);
 			} else {
 				if(_VisionImpexArguments.isDebug()) {
-					LOG.info("DEBUG : Merge : replacing card (" + masterVisionCard.getName() + ") as key (" + cardKey + ")" );
+					LOG.info("Merge : replacing card (" + masterVisionCard.getName() + ") as key (" + cardKey + ")" );
 				}
 				htblExistingCards.put(cardKey, masterVisionCard);
 			}
@@ -159,9 +147,7 @@ public class MasterVisionWorkspaceImpl implements IMasterVisionWorkspace {
 		Set<String> keys = htblExistingCards.keySet();
 		for(String key : keys) {
 			MasterVisionCard card = htblExistingCards.get(key);
-			if(_VisionImpexArguments.isDebug()) {
-				LOG.info("DEBUG : Merge adding (" + card.getName() + ") to updated list" );
-			}
+			LOG.debug("Merge adding (" + card.getName() + ") to updated list" );
 			updatedList.add(card);
 		}
 		existing.setMasterVisionCards(updatedList);

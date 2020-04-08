@@ -53,4 +53,17 @@ public interface IVisionImpexConstants {
 	public static final String OPCON_API_USER = "USER";
 	public static final String OPCON_API_PASSWORD = "PASSWORD";
 
+    interface LogBackConstant {
+
+        String LOG_PATH = "logback.path";
+        String DEBUG_DEPENDENCIES = "logback.debug.dependencies";
+        String DEBUG_API = "logback.debug.api";
+        String LEVEL_STDOUT_KEY = "logback.level.stdout";
+        String LEVEL_FILE_KEY = "logback.level.file";
+        String STDOUT_PATTERN_KEY = "logback.stdout.pattern";
+        String MAXHISTORY_FILE_KEY = "logback.maxhistory.file";
+        String LEVEL_DEBUG_VALUE = "TRACE";
+        String STDOUT_PATTERN_DEBUG_VALUE = "FULL";
+    }
+
 }

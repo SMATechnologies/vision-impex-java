@@ -16,7 +16,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.smatechnologies.opcon.restapiclient.WsException;
 import com.smatechnologies.opcon.restapiclient.api.OpconApi;
@@ -35,7 +34,7 @@ import com.smatechnologies.vision.impex.ws.WsClientBuilder;
 
 public class ExportImpl implements IExport {
 	
-	private static final String DebugUrlMsg =       "DEBUG : Connecting to API ({0})";
+	private static final String DebugUrlMsg =       "Connecting to API ({0})";
 	private static final String DeployFileNameMsg = "Deploy File ({0}) created";
 	
 	private static final String UrlFormat = "{0}/api";
@@ -44,7 +43,6 @@ public class ExportImpl implements IExport {
 
 	
 	private final static Logger LOG = LoggerFactory.getLogger(ExportImpl.class);
-	private ObjectMapper _ObjectMapper = new ObjectMapper();
 	private Utilities _Utilities = new Utilities();
 	private DefaultObjectMapperProvider _DefaultObjectMapperProvider = new DefaultObjectMapperProvider();
 
@@ -68,17 +66,13 @@ public class ExportImpl implements IExport {
 				String key = group.replaceAll("[/:.*?\\s]", "_");
 				String existingKey = htblGroupsToExtract.get(key);
 				if(existingKey == null) {
-					if(_VisionImpexArguments.isDebug()) {
-						LOG.info("DEBUG : Adding group (" + group + ") as key (" + key + ")" );
-					}
+					LOG.debug("Adding group (" + group + ") as key (" + key + ")" );
 					htblGroupsToExtract.put(key,  group);
 				}
 			}
 		}
 		// create client connection
-		if(_VisionImpexArguments.isDebug()) {
-			LOG.info(MessageFormat.format(DebugUrlMsg, url));
-		}
+		LOG.debug(MessageFormat.format(DebugUrlMsg, url));
 
 		OpconApiProfile profile = new OpconApiProfile(url);
 		OpconApi opconApi = getClient(_VisionImpexArguments, profile);
@@ -97,9 +91,7 @@ public class ExportImpl implements IExport {
 				for (MasterVisionWorkspace workspace : workspaces) {
 					for(MasterVisionCard mcard : workspace.getMasterVisionCards()) {
 						String groupKey = mcard.getName().replaceAll("[/:.*?\\s]", "_");
-						if(_VisionImpexArguments.isDebug()) {
-							LOG.info("DEBUG : group to check (" + groupKey + ")");
-						}
+						LOG.debug("group to check (" + groupKey + ")");
 						String exists = htblGroupsToExtract.get(groupKey);
 						if(exists != null) {
 							// we need to add this group
@@ -111,10 +103,7 @@ public class ExportImpl implements IExport {
 				}
 				visionDefinitions.setWorkspaces(updatedWorkspaces);
 			}
-			if(_VisionImpexArguments.isDebug()) {
-				String jsonData = _DefaultObjectMapperProvider.getObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(visionDefinitions);
-				LOG.info("DEBUG : extracted definitions (" + jsonData + ")");
-			}
+			LOG.debug("visionDefinitions " + _DefaultObjectMapperProvider.getObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(visionDefinitions));
 			String deployFileName =  writeFile(visionDefinitions, _VisionImpexArguments.getOutputDirectory());
 			LOG.info(MessageFormat.format(DeployFileNameMsg, deployFileName));
 			success = true;

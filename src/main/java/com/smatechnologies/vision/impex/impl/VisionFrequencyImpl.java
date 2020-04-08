@@ -61,9 +61,7 @@ public class VisionFrequencyImpl implements IVisionFrequency {
 					String frequencyKey = frequency.getName().replaceAll("[/:.*?\\s]", "_");
 					VisionFrequency existingFrequency = htblExistingFrequencies.get(frequencyKey);
 					if(existingFrequency == null) {
-						if(_VisionImpexArguments.isDebug()) {
-							LOG.info("DEBUG : Adding frequency (" + frequency.getName() + ") as key (" + frequencyKey + ")" );
-						}
+						LOG.debug("Adding frequency (" + frequency.getName() + ") as key (" + frequencyKey + ")" );
 						htblExistingFrequencies.put(frequencyKey,  frequency);
 					}
 				}
@@ -84,20 +82,14 @@ public class VisionFrequencyImpl implements IVisionFrequency {
 			Set<String> keys = htblExistingFrequencies.keySet();
 			for(String key : keys) {
 				VisionFrequency frequency = htblExistingFrequencies.get(key);
-				if(_VisionImpexArguments.isDebug()) {
-					LOG.info("DEBUG : Updating frequency (" + frequency.getName() + ")" );
-					String jsonData = _DefaultObjectMapperProvider.getObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(frequency);
-					LOG.info("DEBUG : " + jsonData);
-				}
+				LOG.debug("Updating frequency (" + frequency.getName() + ")" );
+				LOG.debug("frequency " + _DefaultObjectMapperProvider.getObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(frequency));
 				opconApi.visionFrequencies().put(frequency);
 			}
 			// add additional actions
 			for(VisionFrequency frequency : additionalFrequencies) {
-				if(_VisionImpexArguments.isDebug()) {
-					LOG.info("DEBUG : adding frequency (" + frequency.getName() + ")" );
-					String jsonData = _DefaultObjectMapperProvider.getObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(frequency);
-					LOG.info("DEBUG : " + jsonData);
-				}
+				LOG.debug("adding frequency (" + frequency.getName() + ")" );
+				LOG.debug("frequency " + _DefaultObjectMapperProvider.getObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(frequency));
 				opconApi.visionFrequencies().post(frequency);
 			}
 			result = true;
